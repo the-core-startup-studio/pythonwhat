@@ -1,12 +1,12 @@
-from pythonwhat.Test import EqualTest
-from protowhat.Feedback import FeedbackComponent
-from protowhat.failure import debugger
-from pythonwhat.State import State
+from tcs_pythonwhat.Test import EqualTest
+from tcs_protowhat.Feedback import FeedbackComponent
+from tcs_protowhat.failure import debugger
+from tcs_pythonwhat.State import State
 from functools import singledispatch
-from pythonwhat.checks.check_funcs import check_part_index
+from tcs_pythonwhat.checks.check_funcs import check_part_index
 
-MSG_INCORRECT_LOOP = "Have you used the correct iterator variable names? Was expecting `{{sol_vars}}` but got `{{stu_vars}}`."
-MSG_INCORRECT_WITH = "Make sure to use the correct context variable names. Was expecting `{{sol_vars}}` but got `{{stu_vars}}`."
+MSG_INCORRECT_LOOP = "Вы использовали корректные имена переменных итератора? Ожидалось `{{sol_vars}}`, но было получено `{{stu_vars}}`."
+MSG_INCORRECT_WITH = "Убедитесь, что вы использовали корректные контекстные переменные. Ожидалось `{{sol_vars}}`, но было получено `{{stu_vars}}`."
 
 
 def has_context(state, incorrect_msg=None, exact_names=False):
@@ -46,7 +46,7 @@ def _test(state, incorrect_msg, exact_names, tv_name, highlight_name):
 def _has_context(state, incorrect_msg, exact_names):
     with debugger(state):
         state.report(
-            "first argument to _has_context must be a State instance or subclass"
+            "первым аргументом _has_context должен быть экземпляр State или его подкласс"
         )
 
 

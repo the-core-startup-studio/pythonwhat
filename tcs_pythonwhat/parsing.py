@@ -1,5 +1,5 @@
 import ast
-from pythonwhat.utils_ast import wrap_in_module
+from tcs_pythonwhat.utils_ast import wrap_in_module
 from collections.abc import Sequence, Mapping
 from collections import OrderedDict
 from contextlib import ExitStack

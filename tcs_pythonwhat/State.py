@@ -3,21 +3,21 @@ import asttokens
 from functools import partialmethod
 from collections.abc import Mapping
 
-from protowhat.failure import debugger
-from protowhat.Feedback import FeedbackComponent
-from protowhat.selectors import DispatcherInterface
-from protowhat.State import State as ProtoState
-from protowhat.utils import parameters_attr
-from pythonwhat import signatures
-from pythonwhat.converters import get_manual_converters
-from pythonwhat.feedback import Feedback
-from pythonwhat.parsing import (
+from tcs_protowhat.failure import debugger
+from tcs_protowhat.Feedback import FeedbackComponent
+from tcs_protowhat.selectors import DispatcherInterface
+from tcs_protowhat.State import State as ProtoState
+from tcs_protowhat.utils import parameters_attr
+from tcs_pythonwhat import signatures
+from tcs_pythonwhat.converters import get_manual_converters
+from tcs_pythonwhat.feedback import Feedback
+from tcs_pythonwhat.parsing import (
     TargetVars,
     FunctionParser,
     ObjectAccessParser,
     parser_dict,
 )
-from pythonwhat.utils_ast import wrap_in_module
+from tcs_pythonwhat.utils_ast import wrap_in_module
 
 
 class Context(Mapping):
@@ -123,7 +123,7 @@ class State(ProtoState):
         bad_parameters = set(kwargs) - set(self.parameters)
         if bad_parameters:
             raise ValueError(
-                "Invalid init parameters for State: %s" % ", ".join(bad_parameters)
+                "Недопустимые параметры инициализации для State: %s" % ", ".join(bad_parameters)
             )
 
         base_kwargs = {
@@ -195,7 +195,7 @@ class State(ProtoState):
         if not (self.is_root or self.is_creator_type("run")):
             with debugger(self):
                 self.report(
-                    "`%s()` should only be called focusing on a full script, following `Ex()` or `run()`. %s"
+                    "`%s()` следует вызывать только для полной цепочки, следующей за `Ex()` или `run()`. %s"
                     % (fun, extra_msg)
                 )
 
@@ -206,7 +206,7 @@ class State(ProtoState):
         if self.__class__.__name__ not in klasses:
             with debugger(self):
                 self.report(
-                    "`%s()` can only be called on %s."
+                    "`%s()` может быть вызван только для  %s."
                     % (fun, " or ".join(["`%s()`" % pf for pf in prev_fun]))
                 )
 
@@ -214,7 +214,7 @@ class State(ProtoState):
         if self.__class__.__name__ in klasses:
             with debugger(self):
                 self.report(
-                    "`%s()` should not be called on %s."
+                    "`%s()` может быть вызван только для %s."
                     % (fun, " or ".join(["`%s()`" % pf for pf in prev_fun]))
                 )
 
@@ -226,7 +226,7 @@ class State(ProtoState):
             e.filename = "script.py"
             # no line info for now
             self.report(
-                "Your code could not be parsed due to an error in the indentation:<br>`%s.`"
+                "Ваш код не может быть распаршен из-за ошибки в отступе:<br>`%s.`"
                 % str(e)
             )
 
@@ -234,13 +234,13 @@ class State(ProtoState):
             e.filename = "script.py"
             # no line info for now
             self.report(
-                "Your code can not be executed due to a syntax error:<br>`%s.`" % str(e)
+                "Ваш код не может быть выполнен из-за синтаксической ошибки:<br>`%s.`" % str(e)
             )
 
         # Can happen, can't catch this earlier because we can't differentiate between
         # TypeError in parsing or TypeError within code (at runtime).
         except:
-            self.report("Something went wrong while parsing your code.")
+            self.report("Что-то пошло не так при парсинге вашего кода.")
 
         return res
 
@@ -249,7 +249,7 @@ class State(ProtoState):
             return self.ast_dispatcher.parse(code)
         except Exception as e:
             self.report(
-                "Something went wrong when parsing the solution code: %s" % str(e)
+                "Что-то пошло не так при парсинге solution-кода: %s" % str(e)
             )
 
     def parse(self, text):
@@ -270,7 +270,7 @@ class State(ProtoState):
             return Dispatcher(self.pre_exercise_code)
         except Exception as e:
             with debugger(self):
-                self.report("Something went wrong when parsing the PEC: %s" % str(e))
+                self.report("Что-то пошло не так при парсинге PEC: %s" % str(e))
 
 
 class Dispatcher(DispatcherInterface):

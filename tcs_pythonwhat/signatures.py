@@ -1,7 +1,7 @@
 import inspect
 from inspect import Parameter as param
-import pythonwhat
-from pythonwhat.tasks import getSignatureFromObjInProcess
+import tcs_pythonwhat
+from tcs_pythonwhat.tasks import getSignatureFromObjInProcess
 
 
 def sig_from_params(*args):
@@ -10,7 +10,7 @@ def sig_from_params(*args):
 
 def sig_from_obj(obj_char):
     return getSignatureFromObjInProcess(
-        obj_char, pythonwhat.State.State.root_state.solution_process
+        obj_char, tcs_pythonwhat.State.State.root_state.solution_process
     )
 
 

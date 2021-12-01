@@ -1,6 +1,6 @@
 from typing import Dict
 
-from protowhat.Feedback import Feedback as ProtoFeedback
+from tcs_protowhat.Feedback import Feedback as ProtoFeedback
 
 
 class Feedback(ProtoFeedback):

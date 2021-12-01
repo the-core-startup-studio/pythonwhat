@@ -1,10 +1,10 @@
 from functools import partial
 
-from protowhat.sct_syntax import link_to_state
-from pythonwhat.checks.check_function import check_function
-from protowhat.failure import TestFail, InstructorError
-from pythonwhat.checks.check_funcs import check_args
-from pythonwhat.checks.has_funcs import has_equal_value, has_equal_ast, has_printout
+from tcs_protowhat.sct_syntax import link_to_state
+from tcs_pythonwhat.checks.check_function import check_function
+from tcs_protowhat.failure import TestFail, InstructorError
+from tcs_pythonwhat.checks.check_funcs import check_args
+from tcs_pythonwhat.checks.has_funcs import has_equal_value, has_equal_ast, has_printout
 
 # this is done by the chain for v2
 # it's only needed when a new state is created and (possibly) used elsewhere

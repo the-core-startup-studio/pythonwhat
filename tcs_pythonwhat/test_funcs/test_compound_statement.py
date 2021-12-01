@@ -1,20 +1,20 @@
-from protowhat.utils_messaging import get_ord
-from protowhat.sct_syntax import link_to_state
-from pythonwhat.checks.check_funcs import (
+from tcs_protowhat.utils_messaging import get_ord
+from tcs_protowhat.sct_syntax import link_to_state
+from tcs_pythonwhat.checks.check_funcs import (
     check_node,
     check_part,
     check_part_index,
     with_context,
 )
-from pythonwhat.test_funcs.utils import fix_format, stringify, call
-from pythonwhat.checks.check_logic import multi
-from pythonwhat.checks.has_funcs import (
+from tcs_pythonwhat.test_funcs.utils import fix_format, stringify, call
+from tcs_pythonwhat.checks.check_logic import multi
+from tcs_pythonwhat.checks.has_funcs import (
     has_equal_part_len,
     has_equal_part,
     has_equal_value,
     has_equal_output,
 )
-from pythonwhat.checks.check_has_context import has_context
+from tcs_pythonwhat.checks.check_has_context import has_context
 from functools import partial
 
 # this is done by the chain for v2
@@ -349,10 +349,10 @@ def test_args(
         "The {{parent[part]}} `{{stu_part[name]}}` does not have the correct default."
     )
 
-    MSG_NO_VARARG = "Have you specified an argument to take a `*` argument and named it `{{sol_part['*args'][name]}}`?"
-    MSG_NO_KWARGS = "Have you specified an argument to take a `**` argument and named it `{{sol_part['**kwargs'][name]}}`?"
-    MSG_VARARG_NAME = "Have you specified an argument to take a `*` argument and named it `{{sol_part[name]}}`?"
-    MSG_KWARG_NAME = "Have you specified an argument to take a `**` argument and named it `{{sol_part[name]}}`?"
+    MSG_NO_VARARG = "Вы указали аргумент для принятия аргумента '*' и назвали его `{{sol_part['*args'][name]}}`?"
+    MSG_NO_KWARGS = "Вы указали аргумент для принятия аргумента '**' и назвали его `{{sol_part['**kwargs'][name]}}`?"
+    MSG_VARARG_NAME = "Вы указали аргумент для принятия аргумента '*' и назвали его `{{sol_part[name]}}`?"
+    MSG_KWARG_NAME = "Вы указали аргумент для принятия аргумента '** и назвали его `{{sol_part[name]}}`?"
 
     if arg_names or arg_defaults:
         # test number of args
@@ -484,9 +484,9 @@ with open_file('...') as file:
 
     """
 
-    MSG_NUM_CTXT = "Make sure to use the correct number of context variables. It seems you defined too many."
-    MSG_NUM_CTXT2 = "Make sure to use the correct number of context variables. It seems you defined too little."
-    MSG_CTXT_NAMES = "Make sure to use the correct context variable names. Was expecting `{{sol_vars}}` but got `{{stu_vars}}`."
+    MSG_NUM_CTXT = "Убедитесь, что используется правильное количество контекстных переменной. Кажется, вы определили слишком много."
+    MSG_NUM_CTXT2 = "Убедитесь, что используется правильное количество контекстных переменных. Похоже, вы определили слишком мало."
+    MSG_CTXT_NAMES = "Убедитесь, что вы используете правильные имена контекстных переменных. Ожидалось `{{sol_vars}}`, но было получено `{{stu_vars}}`."
 
     check_with = partial(
         check_node, state, "withs", index - 1, "{{ordinal}} `with` statement"
@@ -566,9 +566,9 @@ def test_comp(
     rep=None,
 ):
 
-    MSG_INCORRECT_ITER_VARS = "Have you used the correct iterator variables?"
-    MSG_INCORRECT_NUM_ITER_VARS = "Have you used {{num_vars}} iterator variables?"
-    MSG_INSUFFICIENT_IFS = "Have you used {{sol_len}} ifs?"
+    MSG_INCORRECT_ITER_VARS = "Вы использовали правильные переменные итератора?"
+    MSG_INCORRECT_NUM_ITER_VARS = "Вы использовали переменную итератора {{num_vars}}?"
+    MSG_INSUFFICIENT_IFS = "Вы использовали {{sol_len}} if'ов?"
 
     # make sure other messages are set to default if None
     if insufficient_ifs_msg is None:

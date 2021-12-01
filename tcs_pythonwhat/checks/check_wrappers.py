@@ -1,13 +1,13 @@
-from protowhat.failure import _debug
-from protowhat.checks.check_simple import allow_errors
-from protowhat.checks.check_bash_history import has_command
-from protowhat.checks.check_files import check_file, has_dir
-from pythonwhat.checks.check_funcs import check_part, check_part_index, check_node
-from pythonwhat.checks.has_funcs import has_equal_part
-from pythonwhat.checks.check_function import check_function
-from pythonwhat.checks.check_has_context import has_context
-from pythonwhat.checks import check_object, check_logic, check_funcs, has_funcs
-from pythonwhat.local import run
+from tcs_protowhat.failure import _debug
+from tcs_protowhat.checks.check_simple import allow_errors
+from tcs_protowhat.checks.check_bash_history import has_command
+from tcs_protowhat.checks.check_files import check_file, has_dir
+from tcs_pythonwhat.checks.check_funcs import check_part, check_part_index, check_node
+from tcs_pythonwhat.checks.has_funcs import has_equal_part
+from tcs_pythonwhat.checks.check_function import check_function
+from tcs_pythonwhat.checks.check_has_context import has_context
+from tcs_pythonwhat.checks import check_object, check_logic, check_funcs, has_funcs
+from tcs_pythonwhat.local import run
 
 from inspect import signature, Parameter
 from functools import partial, wraps
@@ -32,7 +32,7 @@ __PART_INDEX_WRAPPERS__ = {
 
 __NODE_WRAPPERS__ = {
     "list_comp": {
-        "typestr": "{{ordinal}} list comprehension",
+        "typestr": "{{ordinal}} список",
         "docstr": """Check whether a list comprehension was coded and zoom in on it.
 
         Can be chained with ``check_iter()``, ``check_body()``, and ``check_ifs()``.
@@ -81,7 +81,7 @@ __NODE_WRAPPERS__ = {
         """,
     },
     "generator_exp": {
-        "typestr": "{{ordinal}} generator expression",
+        "typestr": "{{ordinal}} выражение генератора",
         "docstr": """Check whether a generator expression was coded and zoom in on it.
 
         Can be chained with ``check_iter()``, ``check_body()``, and ``check_ifs()``.
@@ -113,7 +113,7 @@ __NODE_WRAPPERS__ = {
         """,
     },
     "dict_comp": {
-        "typestr": "{{ordinal}} dictionary comprehension",
+        "typestr": "{{ordinal}} словарь",
         "docstr": """Check whether a dictionary comprehension was coded and zoom in on it.
 
         Can be chained with ``check_key()``, ``check_value()``, and ``check_ifs()``.
@@ -157,7 +157,7 @@ __NODE_WRAPPERS__ = {
         """,
     },
     "for_loop": {
-        "typestr": "{{ordinal}} for loop",
+        "typestr": "{{ordinal}} цикл 'for'",
         "docstr": """Check whether a for loop was coded and zoom in on it.
 
         Can be chained with ``check_iter()`` and ``check_body()``.
@@ -261,7 +261,7 @@ __NODE_WRAPPERS__ = {
         """,
     },
     "function_def": {
-        "typestr": "definition of `{{index}}()`",
+        "typestr": "определение `{{index}}()`",
         "docstr": """Check whether a function was defined and zoom in on it.
 
         Can be chained with ``check_call()``, ``check_args()`` and ``check_body()``.
@@ -373,7 +373,7 @@ __NODE_WRAPPERS__ = {
         """,
     },
     "class_def": {
-        "typestr": "class definition of `{{index}}`",
+        "typestr": "определение класса `{{index}}`",
         "docstr": """Check whether a class was defined and zoom in on its definition
 
         Can be chained with ``check_bases()`` and ``check_body()``.
@@ -417,14 +417,14 @@ __NODE_WRAPPERS__ = {
         """,
     },
     "if_exp": {
-        "typestr": "{{ordinal}} if expression",
+        "typestr": "{{ordinal}} выражение 'if'",
         "docstr": """Check whether an if expression was coded zoom in on it.
 
         This function works the exact same way as ``check_if_else()``.
         """,
     },
     "if_else": {
-        "typestr": "{{ordinal}} if statement",
+        "typestr": "{{ordinal}} выражение 'if-else'",
         "docstr": """Check whether an if statement was coded zoom in on it.
 
         Args:
@@ -501,7 +501,7 @@ __NODE_WRAPPERS__ = {
         """,
     },
     "lambda_function": {
-        "typestr": "{{ordinal}} lambda function",
+        "typestr": "{{ordinal}} лямбда-функция",
         "docstr": """Check whether a lambda function was coded zoom in on it.
 
         Can be chained with ``check_call()``, ``check_args()`` and ``check_body()``.
@@ -550,7 +550,7 @@ __NODE_WRAPPERS__ = {
         """,
     },
     "try_except": {
-        "typestr": "{{ordinal}} try statement",
+        "typestr": "{{ordinal}} выражение 'try-except'",
         "docstr": """Check whether a try except statement was coded zoom in on it.
 
         Can be chained with ``check_body()``, ``check_handlers()``, ``check_orelse()`` and ``check_finalbody()``.
@@ -593,7 +593,7 @@ __NODE_WRAPPERS__ = {
         """,
     },
     "while": {
-        "typestr": "{{ordinal}} `while` loop",
+        "typestr": "{{ordinal}} цикл `while`",
         "docstr": """Check whether a while loop was coded and zoom in on it.
 
         Can be chained with ``check_test()``, ``check_body()`` and ``check_orelse()``.
@@ -636,7 +636,7 @@ __NODE_WRAPPERS__ = {
         """,
     },
     "with": {
-        "typestr": "{{ordinal}} `with` statement",
+        "typestr": "{{ordinal}} выражение `with`",
         "docstr": """Check whether a with statement was coded zoom in on it.
 
         Args:
@@ -712,7 +712,7 @@ add_partial_sct(
     state_partial(
         has_equal_part,
         "name",
-        msg="Make sure to use the correct {{name}}, was expecting {{sol_part[name]}}, instead got {{stu_part[name]}}.",
+        msg="Убедитесь, что вы корретно используете {{name}}, ожидалось {{sol_part[name]}}, но было получено {{stu_part[name]}}.",
     ),
     "has_equal_name",
 )
@@ -720,7 +720,7 @@ add_partial_sct(
     state_partial(
         has_equal_part,
         "is_default",
-        msg="Make sure it {{ 'has' if sol_part.is_default else 'does not have'}} a default argument.",
+        msg="Убедитесь, что {{ 'has' if sol_part.is_default else 'does not have'}} является аргументом по-умолчанию.",
     ),
     "is_default",
 )

@@ -5,7 +5,7 @@ import ast
 from os import path
 from setuptools import setup
 
-PACKAGE_NAME = "pythonwhat"
+PACKAGE_NAME = "tcs_pythonwhat"
 REQUIREMENT_NAMES = ["protowhat", "markdown2", "jinja2", "asttokens", "dill"]
 PEER_REQUIREMENTS = ["numpy", "pandas"]
 
@@ -17,21 +17,20 @@ README_FILE = path.join(HERE, "README.md")
 with open(VERSION_FILE, encoding="utf-8") as fp:
     _version_re = re.compile(r"__version__\s+=\s+(.*)")
     VERSION = str(ast.literal_eval(_version_re.search(fp.read()).group(1)))
+
+requirements = []
 with open(REQUIREMENTS_FILE, encoding="utf-8") as fp:
-    req_txt = fp.read()
-    _requirements_re_template = r"^({}(?:\s*[~<>=]+\s*\S*)?)\s*(?:#.*)?$"
-    REQUIREMENTS = [
-        re.search(_requirements_re_template.format(requirement), req_txt, re.M).group(0)
-        for requirement in REQUIREMENT_NAMES
-    ] + PEER_REQUIREMENTS
+    for line in fp.readlines():
+        requirements.append(line[:-1])
+
 with open(README_FILE, encoding="utf-8") as fp:
     README = fp.read()
 
 setup(
     name=PACKAGE_NAME,
     version=VERSION,
-    packages=[PACKAGE_NAME, "pythonwhat.checks", "pythonwhat.test_funcs"],
-    install_requires=REQUIREMENTS,
+    packages=[PACKAGE_NAME, "tcs_pythonwhat.checks", "tcs_pythonwhat.test_funcs"],
+    install_requires=requirements,
     description="Submission correctness tests for Python",
     long_description=README,
     long_description_content_type="text/markdown",

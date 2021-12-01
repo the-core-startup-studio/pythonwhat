@@ -1,6 +1,6 @@
 import ast
 
-from protowhat.failure import debugger
+from tcs_protowhat.failure import debugger
 
 
 def wrap_in_module(node):

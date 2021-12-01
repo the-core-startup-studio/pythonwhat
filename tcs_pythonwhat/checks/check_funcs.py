@@ -1,10 +1,10 @@
-from protowhat.Feedback import FeedbackComponent
-from pythonwhat.checks.check_logic import multi
-from pythonwhat.checks.has_funcs import has_part
-from protowhat.failure import debugger
-from pythonwhat.tasks import setUpNewEnvInProcess, breakDownNewEnvInProcess
-from protowhat.utils_messaging import get_ord
-from pythonwhat.utils_ast import assert_ast
+from tcs_protowhat.Feedback import FeedbackComponent
+from tcs_pythonwhat.checks.check_logic import multi
+from tcs_pythonwhat.checks.has_funcs import has_part
+from tcs_protowhat.failure import debugger
+from tcs_pythonwhat.tasks import setUpNewEnvInProcess, breakDownNewEnvInProcess
+from tcs_protowhat.utils_messaging import get_ord
+from tcs_pythonwhat.utils_ast import assert_ast
 import ast
 from jinja2 import Template
 
@@ -46,9 +46,9 @@ def check_part(state, name, part_msg, missing_msg=None, expand_msg=None):
     """Return child state with name part as its ast tree"""
 
     if missing_msg is None:
-        missing_msg = "Are you sure you defined the {{part}}? "
+        missing_msg = "Вы уверены, что определили {{part}}? "
     if expand_msg is None:
-        expand_msg = "Did you correctly specify the {{part}}? "
+        expand_msg = "Правильно ли вы указали {{part}}? "
 
     if not part_msg:
         part_msg = name
@@ -75,9 +75,9 @@ def check_part_index(state, name, index, part_msg, missing_msg=None, expand_msg=
     """
 
     if missing_msg is None:
-        missing_msg = "Are you sure you defined the {{part}}? "
+        missing_msg = "Вы уверены, что определили {{part}}? "
     if expand_msg is None:
-        expand_msg = "Did you correctly specify the {{part}}? "
+        expand_msg = "Правильно ли вы указали {{part}}? "
 
     # create message
     ordinal = get_ord(index + 1) if isinstance(index, int) else ""
@@ -112,9 +112,9 @@ def check_node(
 ):
 
     if missing_msg is None:
-        missing_msg = "The system wants to check the {{typestr}} but hasn't found it."
+        missing_msg = "Система хочет проверить {{typestr}}, но он не был найден."
     if expand_msg is None:
-        expand_msg = "Check the {{typestr}}. "
+        expand_msg = "Проверьте {{typestr}}. "
 
     stu_out = state.ast_dispatcher.find(name, state.student_ast)
     sol_out = state.ast_dispatcher.find(name, state.solution_ast)
@@ -153,7 +153,7 @@ def with_context(state, *args, child=None):
     if isinstance(solution_res, Exception):
         with debugger(state):
             state.report(
-                "error in the solution, running test_with(): %s" % str(solution_res)
+                "ошибка в решении при вызове test_with(): %s" % str(solution_res)
             )
 
     student_res = setUpNewEnvInProcess(
@@ -161,13 +161,13 @@ def with_context(state, *args, child=None):
     )
     if isinstance(student_res, AttributeError):
         child.report(
-            "In your `with` statement, you're not using a correct context manager."
+            "В вашей конструкция 'with', вы не используете корректный контекстный менеджер."
         )
 
     if isinstance(student_res, (AssertionError, ValueError, TypeError)):
         child.report(
-            "In your `with` statement, the number of values in your context manager "
-            "doesn't correspond to the number of variables you're trying to assign it to."
+            "В вашей конструкция 'with', количество значений в вашем контекстном менеджере "
+            "не соответствует количеству переменных, которым вы пытаетесь их назначить."
         )
 
     # run subtests
@@ -188,8 +188,8 @@ def with_context(state, *args, child=None):
         close_student_context = breakDownNewEnvInProcess(process=state.student_process)
         if isinstance(close_student_context, Exception):
             state.report(
-                "Your `with` statement can not be closed off correctly, you're "
-                "not using the context manager correctly."
+                "Конструкция 'with' не может быть закрыта корретно, вы "
+                "используете контекстный менеджер неправильно."
             )
     return state
 
@@ -244,14 +244,14 @@ def check_args(state, name, missing_msg=None):
 
     """
     if missing_msg is None:
-        missing_msg = "Did you specify the {{part}}?"
+        missing_msg = "Вы указали {{part}}?"
 
     if name in ["*args", "**kwargs"]:  # for check_function_def
         return check_part(state, name, name, missing_msg=missing_msg)
     else:
         if isinstance(name, list):  # dealing with args or kwargs
             if name[0] == "args":
-                arg_str = "{} argument passed as a variable length argument".format(
+                arg_str = "{} аргумент передается как аргумент переменной длины".format(
                     get_ord(name[1] + 1)
                 )
             else:
@@ -276,7 +276,7 @@ def build_call(callstr, node):
         func_expr = node
         argstr = "it with the arguments `%s`" % callstr.replace("f", "")
     else:
-        raise TypeError("Can't handle AST that is passed.")
+        raise TypeError("Не удается обработать переданный AST.")
 
     parsed = ast.parse(callstr).body[0].value
     parsed.func = func_expr

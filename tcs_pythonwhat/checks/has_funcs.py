@@ -1,5 +1,5 @@
-from protowhat.utils_messaging import get_ord
-from pythonwhat.tasks import (
+from tcs_protowhat.utils_messaging import get_ord
+from tcs_pythonwhat.tasks import (
     getResultInProcess,
     getOutputInProcess,
     getErrorInProcess,
@@ -8,10 +8,10 @@ from pythonwhat.tasks import (
     getOptionFromProcess,
     UndefinedValue,
 )
-from pythonwhat.Test import EqualTest, DefinedCollTest
-from protowhat.Feedback import Feedback, FeedbackComponent
-from protowhat.failure import InstructorError, debugger
-from pythonwhat import utils
+from tcs_pythonwhat.Test import EqualTest, DefinedCollTest
+from tcs_protowhat.Feedback import Feedback, FeedbackComponent
+from tcs_protowhat.failure import InstructorError, debugger
+from tcs_pythonwhat import utils
 from functools import partial
 import re
 import copy
@@ -158,8 +158,8 @@ def has_equal_ast(state, incorrect_msg=None, code=None, exact=True, append=None)
 
     if code and incorrect_msg is None:
         raise InstructorError.from_message(
-            "If you manually specify the code to match inside has_equal_ast(), "
-            "you have to explicitly set the `incorrect_msg` argument."
+            "Если вы вручную указываете код для сопоставления внутри has_equal_as(), "
+            "вам необходимо явно задать аргумент `incorrect_msg`"
         )
 
     if (
@@ -202,15 +202,15 @@ def has_equal_ast(state, incorrect_msg=None, code=None, exact=True, append=None)
     return state
 
 
-DEFAULT_INCORRECT_MSG = "Expected {{test_desc}}`{{sol_eval}}`, but got `{{stu_eval}}`."
-DEFAULT_ERROR_MSG = "Running {{'it' if parent['part'] else 'the highlighted expression'}} generated an error: `{{stu_str}}`."
-DEFAULT_ERROR_MSG_INV = "Running {{'it' if parent['part'] else 'the highlighted expression'}} didn't generate an error, but it should!"
-DEFAULT_UNDEFINED_NAME_MSG = "Running {{'it' if parent['part'] else 'the highlighted expression'}} should define a variable `{{name}}` without errors, but it doesn't."
+DEFAULT_INCORRECT_MSG = "Ожидалось {{test_desc}}`{{sol_eval}}`, но было получено `{{stu_eval}}`."
+DEFAULT_ERROR_MSG = "Выполнение {{'it' if parent['part'] else 'the highlighted expression'}} привело к ошибке: `{{stu_str}}`."
+DEFAULT_ERROR_MSG_INV = "Выполнение {{'it' if parent['part'] else 'the highlighted expression'}} не привело к ошибке:, но оно должно было!"
+DEFAULT_UNDEFINED_NAME_MSG = "Выполнение {{'it' if parent['part'] else 'the highlighted expression'}} должно определить переменную `{{name}}` без ошибок, но были получены ошибки."
 DEFAULT_INCORRECT_NAME_MSG = (
-    "Are you sure you assigned the correct value to `{{name}}`?"
+    "Вы уверены, что присвоили правильное значение `{{name}}`?"
 )
 DEFAULT_INCORRECT_EXPR_CODE_MSG = (
-    "Running the expression `{{expr_code}}` didn't generate the expected result."
+    "Выполнение выражения `{{expr_code}}` не привело к ожидаемому результату."
 )
 
 args_string = """
@@ -440,7 +440,7 @@ has_equal_error.__doc__ = """Run targeted student and solution code, and compare
 
 ## Various has tests ----------------------------------------------------------
 
-from pythonwhat.Test import StringContainsTest
+from tcs_pythonwhat.Test import StringContainsTest
 
 
 def has_code(state, text, pattern=True, not_typed_msg=None):
@@ -468,9 +468,9 @@ def has_code(state, text, pattern=True, not_typed_msg=None):
     """
     if not not_typed_msg:
         if pattern:
-            not_typed_msg = "Could not find the correct pattern in your code."
+            not_typed_msg = "Не удалось найти правильный шаблон в вашем коде."
         else:
-            not_typed_msg = "Could not find the following text in your code: %r" % text
+            not_typed_msg = "Не удалось найти следующий текст в вашем коде: %r" % text
 
     student_code = state.student_code
 
@@ -483,8 +483,8 @@ def has_import(
     state,
     name,
     same_as=False,
-    not_imported_msg="Did you import `{{pkg}}`?",
-    incorrect_as_msg="Did you import `{{pkg}}` as `{{alias}}`?",
+    not_imported_msg="Вы импортировали `{{pkg}}`?",
+    incorrect_as_msg="Вы импортировали `{{pkg}}` как `{{alias}}`?",
 ):
     """Checks whether student imported a package or function correctly.
 
@@ -541,7 +541,7 @@ def has_import(
 
     if name not in solution_imports:
         raise InstructorError.from_message(
-            "`has_import()` couldn't find an import of the package %s in your solution code."
+            "`has_import()` не смог найти импортирование библиотеки %s в solution-коде."
             % name
         )
 
@@ -598,7 +598,7 @@ def has_output(state, text, pattern=True, no_output_msg=None):
 
     """
     if not no_output_msg:
-        no_output_msg = "You did not output the correct things."
+        no_output_msg = "Вы не вывели ожидаемый результат."
 
     state.do_test(
         StringContainsTest(state.raw_student_output, text, pattern, no_output_msg)
@@ -690,7 +690,7 @@ def has_printout(
 
     if not_printed_msg is None:
         not_printed_msg = (
-            "Have you used `{{sol_call}}` to do the appropriate printouts?"
+            "Вы использовали `{{sol_call}}` чтобы сделать вывод соответствующего результата?"
         )
 
     try:
@@ -699,7 +699,7 @@ def has_printout(
         ][index]["node"]
     except (KeyError, IndexError):
         raise InstructorError.from_message(
-            "`has_printout({})` couldn't find the {} print call in your solution.".format(
+            "`has_printout({})` не смог найти вызов {} для вывода соответствующего результата в solution-коде.".format(
                 index, get_ord(index + 1)
             )
         )
@@ -734,7 +734,7 @@ def has_printout(
 
 def has_no_error(
     state,
-    incorrect_msg="Have a look at the console: your code contains an error. Fix it and try again!",
+    incorrect_msg="Взгляните на консоль: ваш код содержит ошибку. Исправьте это и попробуйте еще раз!",
 ):
     """Check whether the submission did not generate a runtime error.
 
@@ -809,27 +809,27 @@ def has_chosen(state, correct, msgs):
     """
     if not issubclass(type(correct), int):
         raise InstructorError.from_message(
-            "Inside `has_chosen()`, the argument `correct` should be an integer."
+            "Внутри `has_chosen()` аргумент 'correct' должен быть целым числом."
         )
 
     student_process = state.student_process
     if not isDefinedInProcess(MC_VAR_NAME, student_process):
         raise InstructorError.from_message(
-            "Option not available in the student process"
+            "Опция не доступна в student-коде"
         )
     else:
         selected_option = getOptionFromProcess(student_process, MC_VAR_NAME)
         if not issubclass(type(selected_option), int):
-            raise InstructorError.from_message("selected_option should be an integer")
+            raise InstructorError.from_message("selected_option должен быть целым числом")
 
         if selected_option < 1 or correct < 1:
             raise InstructorError.from_message(
-                "selected_option and correct should be greater than zero"
+                "selected_option and correct должны быть больше нуля"
             )
 
         if selected_option > len(msgs) or correct > len(msgs):
             raise InstructorError.from_message(
-                "there are not enough feedback messages defined"
+                "определено недостаточно сообщений обратной связи."
             )
 
         feedback_msg = msgs[selected_option - 1]

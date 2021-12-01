@@ -1,5 +1,5 @@
-from protowhat.Feedback import FeedbackComponent
-from protowhat.checks.check_logic import (
+from tcs_protowhat.Feedback import FeedbackComponent
+from tcs_protowhat.checks.check_logic import (
     multi,
     check_not,
     check_or,
@@ -7,7 +7,7 @@ from protowhat.checks.check_logic import (
     disable_highlighting,
     fail,
 )
-from protowhat.failure import InstructorError
+from tcs_protowhat.failure import InstructorError
 import ast
 
 
@@ -209,7 +209,7 @@ def set_context(state, *args, **kwargs):
     # for now, you can't specify both
     if len(args) > 0 and len(kwargs) > 0:
         raise InstructorError.from_message(
-            "In `set_context()`, specify arguments either by position, either by name."
+            "В `set_context()`, укажите аргументы либо позиционно, либо по ключу."
         )
 
     # set args specified by pos -----------------------------------------------
@@ -217,7 +217,7 @@ def set_context(state, *args, **kwargs):
         # stop if too many pos args for solution
         if len(args) > len(sol_crnt):
             raise InstructorError.from_message(
-                "Too many positional args. There are {} context vals, but tried to set {}".format(
+                "Слишком много позиционных аргументов. Существуют контекстные переменные {}, но вы попытались передать {}".format(
                     len(sol_crnt), len(args)
                 )
             )
@@ -233,7 +233,7 @@ def set_context(state, *args, **kwargs):
         # stop if keywords don't match with solution
         if set(kwargs) - set(upd_sol):
             raise InstructorError.from_message(
-                "`set_context()` failed: context val names are {}, but you tried to set {}.".format(
+                "`set_context()`: контекстные переменные называются {}, а вы попытались передать {}.".format(
                     upd_sol or "missing", sorted(list(kwargs.keys()))
                 )
             )

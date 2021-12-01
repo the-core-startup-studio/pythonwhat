@@ -1,10 +1,10 @@
-from pythonwhat.State import State
-from pythonwhat.local import run_exercise
-from pythonwhat.sct_syntax import Ex, get_chains
-from pythonwhat.utils import check_str, check_process
-from protowhat.Reporter import Reporter
-from protowhat.failure import Failure, InstructorError
-from pythonwhat.utils import include_v1
+from tcs_pythonwhat.State import State
+from tcs_pythonwhat.local import run_exercise
+from tcs_pythonwhat.sct_syntax import Ex, get_chains
+from tcs_pythonwhat.utils import check_str, check_process
+from tcs_protowhat.Reporter import Reporter
+from tcs_protowhat.failure import Failure, InstructorError
+from tcs_pythonwhat.utils import include_v1
 
 
 def test_exercise(
@@ -87,14 +87,14 @@ def allow_errors():
 
 def prep_context():
     cntxt = {"success_msg": success_msg}
-    from pythonwhat.sct_syntax import v2_check_functions
-    from pythonwhat.probe import build_probe_context
+    from tcs_pythonwhat.sct_syntax import v2_check_functions
+    from tcs_pythonwhat.probe import build_probe_context
 
     imports = [
         "from inspect import Parameter as param",
-        "from pythonwhat.signatures import sig_from_params, sig_from_obj",
-        "from pythonwhat.State import set_converter",
-        "from pythonwhat.sct_syntax import F, Ex"
+        "from tcs_pythonwhat.signatures import sig_from_params, sig_from_obj",
+        "from tcs_pythonwhat.State import set_converter",
+        "from tcs_pythonwhat.sct_syntax import F, Ex"
     ]
     [exec(line, None, cntxt) for line in imports]
 

@@ -1,9 +1,9 @@
-from protowhat.sct_syntax import EagerChain, ExGen, LazyChainStart, state_dec_gen, LazyChain
-from pythonwhat.checks.check_wrappers import scts
-from pythonwhat.State import State
-from pythonwhat.probe import Node, Probe, TEST_NAMES
-from pythonwhat.utils import include_v1
-from pythonwhat import test_funcs
+from tcs_protowhat.sct_syntax import EagerChain, ExGen, LazyChainStart, state_dec_gen, LazyChain
+from tcs_pythonwhat.checks.check_wrappers import scts
+from tcs_pythonwhat.State import State
+from tcs_pythonwhat.probe import Node, Probe, TEST_NAMES
+from tcs_pythonwhat.utils import include_v1
+from tcs_pythonwhat import test_funcs
 from functools import wraps
 
 # TODO: could define scts for check_wrappers at the module level

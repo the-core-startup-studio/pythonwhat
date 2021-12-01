@@ -1,18 +1,18 @@
-from pythonwhat.parsing import ObjectAssignmentParser
-from pythonwhat.Test import (
+from tcs_pythonwhat.parsing import ObjectAssignmentParser
+from tcs_pythonwhat.Test import (
     DefinedProcessTest,
     InstanceProcessTest,
     DefinedCollProcessTest,
 )
-from protowhat.Feedback import FeedbackComponent
-from protowhat.failure import InstructorError
-from pythonwhat.tasks import (
+from tcs_protowhat.Feedback import FeedbackComponent
+from tcs_protowhat.failure import InstructorError
+from tcs_pythonwhat.tasks import (
     isDefinedInProcess,
     isInstanceInProcess,
     isDefinedCollInProcess,
 )
-from pythonwhat.checks.check_funcs import part_to_child
-from pythonwhat.utils import v2_only
+from tcs_pythonwhat.checks.check_funcs import part_to_child
+from tcs_pythonwhat.utils import v2_only
 import pandas as pd
 import ast
 
@@ -158,21 +158,21 @@ def check_object(state, index, missing_msg=None, expand_msg=None, typestr="varia
 
     # Only do the assertion if PYTHONWHAT_V2_ONLY is set to '1'
     if v2_only():
-        extra_msg = "If you want to check the value of an object in e.g. a for loop, use `has_equal_value(name = 'my_obj')` instead."
+        extra_msg = "Если вы хотите проверить значение объекта, например, в цикле for, используйте `has_equal_value(имя = 'my_obj')`."
         state.assert_execution_root("check_object", extra_msg=extra_msg)
 
     if missing_msg is None:
-        missing_msg = "Did you define the {{typestr}} `{{index}}` without errors?"
+        missing_msg = "Вы определили {{typestr}} `{{index}}` без ошибок?"
 
     if expand_msg is None:
-        expand_msg = "Did you correctly define the {{typestr}} `{{index}}`? "
+        expand_msg = "Вы правильно определили {{typestr}} `{{index}}`? "
 
     if (
         not isDefinedInProcess(index, state.solution_process)
         and state.has_different_processes()
     ):
         raise InstructorError.from_message(
-            "`check_object()` couldn't find object `%s` in the solution process."
+            "`check_object()` не может найти объект `%s` в solution-коде."
             % index
         )
 
@@ -239,7 +239,7 @@ def is_instance(state, inst, not_instance_msg=None):
 
     if not isInstanceInProcess(sol_name, inst, state.solution_process):
         raise InstructorError.from_message(
-            "`is_instance()` noticed that `%s` is not a `%s` in the solution process."
+            "`is_instance()` выявило, что `%s` не является `%s` в solution-коде."
             % (sol_name, inst.__name__)
         )
 
@@ -332,16 +332,16 @@ def check_keys(state, key, missing_msg=None, expand_msg=None):
     state.assert_is(["object_assignments"], "is_instance", ["check_object", "check_df"])
 
     if missing_msg is None:
-        missing_msg = "There is no {{ 'column' if 'DataFrame' in parent.typestr else 'key' }} `'{{key}}'`."
+        missing_msg = "Отсутствует {{ 'column' if 'DataFrame' in parent.typestr else 'key' }} `'{{key}}'`."
     if expand_msg is None:
-        expand_msg = "Did you correctly set the {{ 'column' if 'DataFrame' in parent.typestr else 'key' }} `'{{key}}'`? "
+        expand_msg = "Вы правильно указали {{ 'column' if 'DataFrame' in parent.typestr else 'key' }} `'{{key}}'`? "
 
     sol_name = state.solution_parts.get("name")
     stu_name = state.student_parts.get("name")
 
     if not isDefinedCollInProcess(sol_name, key, state.solution_process):
         raise InstructorError.from_message(
-            "`check_keys()` couldn't find key `%s` in object `%s` in the solution process."
+            "`check_keys()` не удалось найти ключ `%s` в объекте `%s` в solution-коде."
             % (key, sol_name)
         )
 

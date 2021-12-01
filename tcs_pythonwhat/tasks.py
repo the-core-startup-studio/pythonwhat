@@ -1,15 +1,15 @@
-from pythonwhat import utils
+from tcs_pythonwhat import utils
 import dill
 import pickle
-import pythonwhat
+import tcs_pythonwhat
 import ast
 import inspect
 from copy import deepcopy
 from pickle import PicklingError
-from pythonwhat.utils_env import set_context_vals, assign_from_ast
+from tcs_pythonwhat.utils_env import set_context_vals, assign_from_ast
 from contextlib import contextmanager
 from functools import partial, wraps
-from protowhat.failure import InstructorError
+from tcs_protowhat.failure import InstructorError
 
 
 # Shell is passed as a parameter to partially applied functions in executeTask
@@ -97,14 +97,14 @@ def get_signature(name, mapped_name, signature, manual_sigs, env):
         if signature in manual_sigs:
             signature = inspect.Signature(manual_sigs[signature])
         else:
-            raise InstructorError.from_message("signature error - specified signature not found")
+            raise InstructorError.from_message("signature error - указанная сигнатура не найдена.")
 
     if signature is None:
         # establish function
         try:
             fun = eval(mapped_name, env)
         except:
-            raise InstructorError.from_message("%s() was not found." % mapped_name)
+            raise InstructorError.from_message("%s() не было найдено." % mapped_name)
 
         # first go through manual sigs
         # try to get signature
@@ -119,12 +119,12 @@ def get_signature(name, mapped_name, signature, manual_sigs, env):
                         els[0] = type(eval(els[0], env)).__name__
                         generic_name = ".".join(els[:])
                     except:
-                        raise InstructorError.from_message("signature error - cannot convert call")
+                        raise InstructorError.from_message("signature error - не удается преобразовать вызов")
                     if generic_name in manual_sigs:
                         signature = inspect.Signature(manual_sigs[generic_name])
                     else:
                         raise InstructorError.from_message(
-                            "signature error - %s not in builtins" % generic_name
+                            "signature error - %s не встроена" % generic_name
                         )
                 else:
                     raise InstructorError.from_message("manual signature not found")
@@ -132,7 +132,7 @@ def get_signature(name, mapped_name, signature, manual_sigs, env):
             try:
                 signature = inspect.signature(fun)
             except:
-                raise InstructorError.from_message(e.args[0] + " and cannot determine signature")
+                raise InstructorError.from_message(e.args[0] + " и не удается определить сигнатуру")
 
     return signature
 
@@ -250,7 +250,7 @@ class ReprFail:
 
 def getRepresentation(name, process):
     obj_class = getClass(name, process)
-    converters = pythonwhat.State.State.root_state.converters
+    converters = tcs_pythonwhat.State.State.root_state.converters
     if obj_class in converters:
         repres = convert(name, dill.dumps(converters[obj_class]), process)
         if errored(repres):

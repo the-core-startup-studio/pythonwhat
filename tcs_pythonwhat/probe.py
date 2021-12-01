@@ -3,9 +3,9 @@ import itertools
 import inspect
 from functools import partial
 from collections import OrderedDict
-from pythonwhat import test_funcs
-from pythonwhat.State import State
-from pythonwhat.checks.check_wrappers import state_partial
+from tcs_pythonwhat import test_funcs
+from tcs_pythonwhat.State import State
+from tcs_pythonwhat.checks.check_wrappers import state_partial
 
 TEST_NAMES = [
     "test_mc",
@@ -245,7 +245,7 @@ class Probe(object):
             else:
                 test()
         elif test is not None:
-            raise Exception("Expected a function or list/tuple/dict of functions")
+            raise Exception("Ожидалась функция или список/кортеж/словрь функций")
 
 
 def build_probe_context():

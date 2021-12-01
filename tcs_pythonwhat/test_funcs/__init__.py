@@ -14,12 +14,12 @@ from .test_object import test_object, test_data_frame
 from .test_function import test_function, test_function_v2
 from .test_object_accessed import test_object_accessed
 
-from pythonwhat.checks.check_logic import (  # noqa
+from tcs_pythonwhat.checks.check_logic import (  # noqa
     check_or as test_or,
     check_correct as test_correct,
 )
 
-from pythonwhat.checks.has_funcs import (  # noqa
+from tcs_pythonwhat.checks.has_funcs import (  # noqa
     has_code as test_student_typed,
     has_import as test_import,
     has_output as test_output_contains,

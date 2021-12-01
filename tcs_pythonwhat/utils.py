@@ -42,12 +42,12 @@ def first_lower(s):
 
 
 def check_str(x):
-    assert isinstance(x, str), "object isn't string where string expected"
+    assert isinstance(x, str), "объект не является строкой там, где ожидается строка."
     return x
 
 
 def check_dict(x):
-    assert isinstance(x, dict), "object isn't dict where dict expected"
+    assert isinstance(x, dict), "объект не является словарем там, где ожидается словарь."
     return x
 
 

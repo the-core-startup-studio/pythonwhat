@@ -1,6 +1,6 @@
-from protowhat.Feedback import FeedbackComponent
-from protowhat.utils_messaging import get_times
-from pythonwhat.Test import BiggerTest
+from tcs_protowhat.Feedback import FeedbackComponent
+from tcs_protowhat.utils_messaging import get_times
+from tcs_pythonwhat.Test import BiggerTest
 
 
 def test_object_accessed(state, name, times=1, not_accessed_msg=None):

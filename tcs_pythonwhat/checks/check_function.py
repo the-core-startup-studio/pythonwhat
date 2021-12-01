@@ -1,9 +1,9 @@
-from protowhat.Feedback import FeedbackComponent
-from pythonwhat.checks.check_funcs import part_to_child
-from pythonwhat.tasks import getSignatureInProcess
-from protowhat.utils_messaging import get_ord, get_times
-from protowhat.failure import debugger
-from pythonwhat.parsing import IndexedDict
+from tcs_protowhat.Feedback import FeedbackComponent
+from tcs_pythonwhat.checks.check_funcs import part_to_child
+from tcs_pythonwhat.tasks import getSignatureInProcess
+from tcs_protowhat.utils_messaging import get_ord, get_times
+from tcs_protowhat.failure import debugger
+from tcs_pythonwhat.parsing import IndexedDict
 from functools import partial
 
 
@@ -29,11 +29,11 @@ def get_mapped_name(name, mappings):
     return name
 
 
-MISSING_MSG = "Did you call `{{mapped_name}}()`{{' ' + times if index>0}}?"
+MISSING_MSG = "Вы вызвали функцию `{{mapped_name}}()`{{' ' + times if index>0}}?"
 SIG_ISSUE_MSG = (
-    "Have you specified the arguments for `{{mapped_name}}()` using the right syntax?"
+    "Вы указали аргументы для функции `{{mapped_name}}()`, используя корректный синтаксис?"
 )
-PREPEND_MSG = "Check your {{ord + ' ' if index>0}}call of `{{mapped_name}}()`. "
+PREPEND_MSG = "Проверьте {{ord + ' ' if index>0}} вызов `{{mapped_name}}()`. "
 
 
 def check_function(
@@ -117,12 +117,12 @@ def check_function(
             sol_parts = {**sol_out[name][index]}
         except KeyError:
             state.report(
-                "`check_function()` couldn't find a call of `%s()` in the solution code. Make sure you get the mapping right!"
+                "`check_function()` не удается найти вызов `%s()` в solution-коде. Убедитесь, что вы правильно составили ожидания для кода!"
                 % name
             )
         except IndexError:
             state.report(
-                "`check_function()` couldn't find %s calls of `%s()` in your solution code."
+                "`check_function()` не удается найти %s вызовы `%s()` в solution-коде."
                 % (index + 1, name)
             )
 
@@ -150,7 +150,7 @@ def check_function(
         except Exception as e:
             with debugger(state):
                 state.report(
-                    "`check_function()` couldn't match the %s call of `%s` to its signature:\n%s "
+                    "`check_function()` не удается сопоставить %s вызовы `%s` их сигнатурам:\n%s "
                     % (get_ord(index + 1), name, e)
                 )
 

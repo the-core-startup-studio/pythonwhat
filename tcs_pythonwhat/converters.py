@@ -1,5 +1,5 @@
 import inspect
-import pythonwhat
+import tcs_pythonwhat
 
 
 def get_manual_converters():

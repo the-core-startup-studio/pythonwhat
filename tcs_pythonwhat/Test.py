@@ -2,8 +2,8 @@ import re
 import numpy as np
 import pandas as pd
 from pandas.testing import assert_frame_equal, assert_series_equal
-from pythonwhat.tasks import *
-from protowhat.Test import Test
+from tcs_pythonwhat.tasks import *
+from tcs_protowhat.Test import Test
 
 """
 This file contains all tests that can be done on specific objects. All tests are represented as

@@ -1,10 +1,10 @@
 import ast
 
-from protowhat.Feedback import FeedbackComponent
-from protowhat.failure import InstructorError, debugger
-from pythonwhat.Test import EqualTest
-from pythonwhat.checks.has_funcs import evalCalls
-from pythonwhat.tasks import ReprFail
+from tcs_protowhat.Feedback import FeedbackComponent
+from tcs_protowhat.failure import InstructorError, debugger
+from tcs_pythonwhat.Test import EqualTest
+from tcs_pythonwhat.checks.has_funcs import evalCalls
+from tcs_pythonwhat.tasks import ReprFail
 
 
 def fix_format(arguments):
