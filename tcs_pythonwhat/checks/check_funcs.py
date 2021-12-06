@@ -255,12 +255,12 @@ def check_args(state, name, missing_msg=None):
                     get_ord(name[1] + 1)
                 )
             else:
-                arg_str = "argument `{}`".format(name[1])
+                arg_str = "аргумент `{}`".format(name[1])
         else:
             arg_str = (
-                "{} argument".format(get_ord(name + 1))
+                "{} аргумент".format(get_ord(name + 1))
                 if isinstance(name, int)
-                else "argument `{}`".format(name)
+                else "аргумент `{}`".format(name)
             )
         return check_part_index(state, "args", name, arg_str, missing_msg=missing_msg)
 

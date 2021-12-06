@@ -14,13 +14,13 @@ from functools import partial, wraps
 from jinja2 import Template
 
 __PART_WRAPPERS__ = {
-    "iter": "iterable part",
-    "body": "body",
-    "key": "key part",
-    "value": "value part",
-    "orelse": "else part",
-    "finalbody": "finally part",
-    "test": "condition",
+    "iter": "итератор",
+    "body": "тело",
+    "key": "ключ",
+    "value": "значение",
+    "orelse": "часть 'else'",
+    "finalbody": "часть 'finally'",
+    "test": "состояние",
 }
 
 __PART_INDEX_WRAPPERS__ = {

@@ -313,12 +313,12 @@ def has_expr(
 
         if (test == "error") ^ isinstance(eval_sol, Exception):
             raise InstructorError.from_message(
-                "Evaluating expression raised error in solution process (or didn't raise if testing for one). "
-                "Error: {} - {}".format(type(eval_sol), str_sol)
+                "Выполнение выражения solution-кода вызвало ошибку (или не вызвала, если тестирование проводилось для одного). "
+                "Ошибка: {} - {}".format(type(eval_sol), str_sol)
             )
         if isinstance(eval_sol, ReprFail):
             raise InstructorError.from_message(
-                "Couldn't extract the value for the highlighted expression from the solution process: "
+                "Не удалось извлечь значение для выделенного выражения из solution-кода:"
                 + eval_sol.info
             )
 
@@ -360,7 +360,7 @@ def has_expr(
         fmt_kwargs["stu_eval"] == fmt_kwargs["sol_eval"]):
         fmt_kwargs["stu_eval"] = None
         fmt_kwargs["sol_eval"] = None
-        incorrect_msg = "Expected something different."
+        incorrect_msg = "Ожидалось что-то другое."
 
     # tests ---
     # error in process
@@ -685,7 +685,7 @@ def has_printout(
 
     """
 
-    extra_msg = "If you want to check printouts done in e.g. a for loop, you have to use a `check_function('print')` chain instead."
+    extra_msg = "Если вы хотетите проверить вывод данных внутри цикла, то вы должны использовать выражение`check_function('print')`."
     state.assert_execution_root("has_printout", extra_msg=extra_msg)
 
     if not_printed_msg is None:

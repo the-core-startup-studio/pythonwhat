@@ -235,7 +235,7 @@ def is_instance(state, inst, not_instance_msg=None):
     stu_name = state.student_parts.get("name")
 
     if not_instance_msg is None:
-        not_instance_msg = "Is it a {{inst.__name__}}?"
+        not_instance_msg = "Это {{inst.__name__}}?"
 
     if not isInstanceInProcess(sol_name, inst, state.solution_process):
         raise InstructorError.from_message(
