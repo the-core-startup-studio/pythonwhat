@@ -1,4 +1,4 @@
-tcs_protowhat~=2.1.0
+tcs_protowhat~=2.1.3
 asttokens~=2.0.5
 dill~=0.3.4
 markdown2~=2.3.10

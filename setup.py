@@ -6,7 +6,7 @@ from os import path
 from setuptools import setup
 
 PACKAGE_NAME = "tcs_pythonwhat"
-REQUIREMENT_NAMES = ["protowhat", "markdown2", "jinja2", "asttokens", "dill"]
+REQUIREMENT_NAMES = ["tcs_protowhat", "markdown2", "jinja2", "asttokens", "dill"]
 PEER_REQUIREMENTS = ["numpy", "pandas"]
 
 HERE = path.abspath(path.dirname(__file__))
@@ -18,10 +18,13 @@ with open(VERSION_FILE, encoding="utf-8") as fp:
     _version_re = re.compile(r"__version__\s+=\s+(.*)")
     VERSION = str(ast.literal_eval(_version_re.search(fp.read()).group(1)))
 
-requirements = []
 with open(REQUIREMENTS_FILE, encoding="utf-8") as fp:
-    for line in fp.readlines():
-        requirements.append(line[:-1])
+    req_txt = fp.read()
+    _requirements_re_template = r"^({}(?:\s*[~<>=]+\s*\S*)?)\s*(?:#.*)?$"
+    REQUIREMENTS = [
+        re.search(_requirements_re_template.format(requirement), req_txt, re.M).group(0)
+        for requirement in REQUIREMENT_NAMES
+    ] + PEER_REQUIREMENTS
 
 with open(README_FILE, encoding="utf-8") as fp:
     README = fp.read()

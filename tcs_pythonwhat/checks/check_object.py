@@ -17,7 +17,7 @@ import pandas as pd
 import ast
 
 
-def check_object(state, index, missing_msg=None, expand_msg=None, typestr="variable"):
+def check_object(state, index, missing_msg=None, expand_msg=None, typestr="переменную"):
     """Check object existence (and equality)
 
     Check whether an object is defined in the student's process, and zoom in on its value in both

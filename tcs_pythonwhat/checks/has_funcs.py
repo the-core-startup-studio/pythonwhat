@@ -167,7 +167,7 @@ def has_equal_ast(state, incorrect_msg=None, code=None, exact=True, append=None)
     ):  # if not specified, set to False if incorrect_msg was manually specified
         append = incorrect_msg is None
     if incorrect_msg is None:
-        incorrect_msg = "Expected `{{sol_str}}`, but got `{{stu_str}}`."
+        incorrect_msg = "Ожидалось `{{sol_str}}`, но было получено `{{stu_str}}`."
 
     def parse_tree(tree):
         # get contents of module.body if only 1 element
@@ -203,9 +203,9 @@ def has_equal_ast(state, incorrect_msg=None, code=None, exact=True, append=None)
 
 
 DEFAULT_INCORRECT_MSG = "Ожидалось {{test_desc}}`{{sol_eval}}`, но было получено `{{stu_eval}}`."
-DEFAULT_ERROR_MSG = "Выполнение {{'it' if parent['part'] else 'the highlighted expression'}} привело к ошибке: `{{stu_str}}`."
-DEFAULT_ERROR_MSG_INV = "Выполнение {{'it' if parent['part'] else 'the highlighted expression'}} не привело к ошибке:, но оно должно было!"
-DEFAULT_UNDEFINED_NAME_MSG = "Выполнение {{'it' if parent['part'] else 'the highlighted expression'}} должно определить переменную `{{name}}` без ошибок, но были получены ошибки."
+DEFAULT_ERROR_MSG = "Выполнение {{'кода' if parent['part'] else 'выделенного выражения'}} привело к ошибке: `{{stu_str}}`."
+DEFAULT_ERROR_MSG_INV = "Выполнение {{'кода' if parent['part'] else 'выделенного выражения'}} не привело к ошибке:, но оно должно было!"
+DEFAULT_UNDEFINED_NAME_MSG = "Выполнение {{'кода' if parent['part'] else 'выделенного выражения'}} должно определить переменную `{{name}}` без ошибок, но были получены ошибки."
 DEFAULT_INCORRECT_NAME_MSG = (
     "Вы уверены, что присвоили правильное значение `{{name}}`?"
 )
