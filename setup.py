@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import re
 import ast
 from os import path
@@ -17,7 +15,6 @@ README_FILE = path.join(HERE, "README.md")
 with open(VERSION_FILE, encoding="utf-8") as fp:
     _version_re = re.compile(r"__version__\s+=\s+(.*)")
     VERSION = str(ast.literal_eval(_version_re.search(fp.read()).group(1)))
-
 with open(REQUIREMENTS_FILE, encoding="utf-8") as fp:
     req_txt = fp.read()
     _requirements_re_template = r"^({}(?:\s*[~<>=]+\s*\S*)?)\s*(?:#.*)?$"
@@ -25,7 +22,6 @@ with open(REQUIREMENTS_FILE, encoding="utf-8") as fp:
         re.search(_requirements_re_template.format(requirement), req_txt, re.M).group(0)
         for requirement in REQUIREMENT_NAMES
     ] + PEER_REQUIREMENTS
-
 with open(README_FILE, encoding="utf-8") as fp:
     README = fp.read()
 
@@ -33,7 +29,7 @@ setup(
     name=PACKAGE_NAME,
     version=VERSION,
     packages=[PACKAGE_NAME, "tcs_pythonwhat.checks", "tcs_pythonwhat.test_funcs"],
-    install_requires=requirements,
+    install_requires=REQUIREMENTS,
     description="Submission correctness tests for Python",
     long_description=README,
     long_description_content_type="text/markdown",
